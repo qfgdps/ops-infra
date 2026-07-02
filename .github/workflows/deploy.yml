@@ -1,0 +1,47 @@
+name: deploy
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'ops-01/**'
+      - 'ops-02/**'
+      - 'shared/**'
+  workflow_dispatch:
+    inputs:
+      target:
+        description: 'Deploy target'
+        required: true
+        default: 'ops-01'
+        type: choice
+        options: [ ops-01, ops-02 ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: prod
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure Vault
+        uses: hashicorp/vault-action@v3
+        with:
+          url: ${{ vars.VAULT_ADDR }}
+          method: jwt
+          role: gha-deploy
+          secrets: |
+            secret/data/ops-01/service-account password | SA_PASSWORD ;
+            secret/data/ops-01/stripe key | STRIPE_KEY ;
+            secret/data/ops-01/jwt signing_key | JWT_KEY
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v4
+
+      - name: Deploy
+        run: bash shared/scripts/deploy.sh ${{ github.event.inputs.target || 'ops-01' }}
+
+      - name: Smoke test
+        run: bash shared/scripts/smoke.sh ${{ github.event.inputs.target || 'ops-01' }}
