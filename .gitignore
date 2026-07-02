@@ -1,13 +1,35 @@
 # Secrets — NEVER commit
 .env
-.env.local
-.env.prod
+.env.*
+!.env.example
 secrets/
 *.key
 *.pem
+*.p12
 credentials.json
+vault-token
+kubeconfig
+kubeconfig.*
+!kubeconfig.example
 
-# Build / local
+# Terraform state
+*.tfstate
+*.tfstate.*
+.terraform/
+.terraform.lock.hcl
+
+# Local dev
 .venv/
+venv/
 __pycache__/
+*.pyc
 node_modules/
+.DS_Store
+.idea/
+.vscode/
+*.swp
+
+# Build artefacts
+dist/
+build/
+*.log
