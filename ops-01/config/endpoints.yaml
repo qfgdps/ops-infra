@@ -1,0 +1,30 @@
+# Authoritative endpoint config for ops-01.
+# Consumed by deploy.sh and the smoke-test suite.
+
+vpn:
+  host: vpn.quennarith.com
+  port: 443
+  role: primary
+  ha_peer: vpn02.quennarith.com
+
+sso:
+  host: login.quennarith.com
+  port: 443
+  provider: okta
+  saml_relay: /saml/acs
+
+api:
+  host: api.quennarith.com
+  port: 443
+  version: v2
+  rate_limit_per_minute: 6000
+
+healthchecks:
+  interval_seconds: 30
+  timeout_seconds: 5
+  degraded_after: 3
+  unhealthy_after: 5
+
+alerting:
+  channel: '#platform-ops-alerts'
+  pagerduty_service: platform-ops-primary
