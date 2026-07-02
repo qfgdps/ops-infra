@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: platform-ops-01
+  labels:
+    team: platform-ops
+    tier: prod
+    managed-by: ops-infra-repo
+  annotations:
+    owner: platform-ops
+    on-call: platform-ops-primary
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: platform-ops-02
+  labels:
+    team: platform-ops
+    tier: dr
+    managed-by: ops-infra-repo
