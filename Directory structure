@@ -1,0 +1,19 @@
+ops-infra/
+├── .gitignore
+├── .github/
+│   ├── CODEOWNERS
+│   └── workflows/deploy.yml
+├── README.md
+├── ops-01/
+│   ├── README.md
+│   ├── config/
+│   │   ├── .env.example
+│   │   └── endpoints.yaml
+│   └── deploy.sh
+├── ops-02/
+│   └── README.md (stub: "See ops-01")
+└── shared/
+    ├── k8s/
+    │   └── namespace.yaml
+    └── scripts/
+        └── rotate-creds.sh
