@@ -1,0 +1,9 @@
+# Default: platform-ops owns everything
+*                       @quennarith-corp/platform-ops
+
+# ops-01 is prod — require an extra reviewer from the on-call rota
+/ops-01/                @quennarith-corp/platform-ops @quennarith-corp/on-call
+/ops-01/config/         @quennarith-corp/platform-ops @quennarith-corp/security-review
+
+# CI changes need infra review
+/.github/               @quennarith-corp/platform-ops @quennarith-corp/infra
