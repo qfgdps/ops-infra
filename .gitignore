@@ -1,0 +1,13 @@
+# Secrets — NEVER commit
+.env
+.env.local
+.env.prod
+secrets/
+*.key
+*.pem
+credentials.json
+
+# Build / local
+.venv/
+__pycache__/
+node_modules/
