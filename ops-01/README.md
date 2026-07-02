@@ -14,3 +14,18 @@ Owns the VPN concentrator, SSO portal, and public REST API gateway.
 See `config/endpoints.yaml` for full config.
 
 ## Deploy
+
+./deploy.sh
+
+
+The script pulls the current release manifest, resolves the service-account
+credentials from Vault (`secret/data/ops-01/service-account`), applies the
+k8s namespace from `shared/k8s/namespace.yaml`, and runs the rolling deploy.
+
+Rotation cadence: 90 days. `rotate-creds.sh` handles the ceremony.
+
+## Runbooks
+
+Standard incidents (SSO down, VPN saturated, API 5xx rate spike) — see
+platform-ops Confluence space. On-call is paged via PagerDuty for any
+priority ≤ 3.
